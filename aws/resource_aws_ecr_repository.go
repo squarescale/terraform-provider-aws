@@ -65,7 +65,13 @@ func resourceAwsEcrRepositoryCreate(d *schema.ResourceData, meta interface{}) er
 	d.Set("arn", repository.RepositoryArn)
 	d.Set("registry_id", repository.RegistryId)
 
-	return resourceAwsEcrRepositoryRead(d, meta)
+	d.Set("name", repository.RepositoryName)
+
+	repositoryUrl := buildRepositoryUrl(&repository, meta.(*AWSClient).region)
+	log.Printf("[INFO] Setting the repository url to be %s", repositoryUrl)
+	d.Set("repository_url", repositoryUrl)
+
+	return nil
 }
 
 func resourceAwsEcrRepositoryRead(d *schema.ResourceData, meta interface{}) error {
