@@ -87,3 +87,10 @@ The following attributes are exported:
 * `to_port` - The end port (or ICMP code if protocol is "icmp")
 * `protocol` – The protocol used
 * `description` – Description of the rule
+
+## Timeouts
+
+`aws_security_group_rule` provides the following [Timeouts](/docs/configuration/resources.html#timeouts)
+configuration options:
+
+- `read` - (Default `5 minutes`) How long to wait for reading a rsecurity group rule.
