@@ -40,6 +40,10 @@ func resourceAwsSecurityGroupRule() *schema.Resource {
 		SchemaVersion: 2,
 		MigrateState:  resourceAwsSecurityGroupRuleMigrateState,
 
+		Timeouts: &schema.ResourceTimeout{
+			Read: schema.DefaultTimeout(5 * time.Minute),
+		},
+
 		Schema: map[string]*schema.Schema{
 			"type": {
 				Type:        schema.TypeString,
@@ -224,7 +228,7 @@ information and instructions for recovery. Error message: %s`, sg_id, awsErr.Mes
 	id := ipPermissionIDHash(sg_id, ruleType, perm)
 	log.Printf("[DEBUG] Computed group rule ID %s", id)
 
-	retErr := resource.Retry(5*time.Minute, func() *resource.RetryError {
+	retErr := resource.Retry(d.Timeout(schema.TimeoutRead), func() *resource.RetryError {
 		sg, err := findResourceSecurityGroup(conn, sg_id)
 
 		if err != nil {
