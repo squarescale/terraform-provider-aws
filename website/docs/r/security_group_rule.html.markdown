@@ -89,6 +89,13 @@ In addition to all arguments above, the following attributes are exported:
 * `protocol` – The protocol used
 * `description` – Description of the rule
 
+## Timeouts
+
+`aws_security_group_rule` provides the following [Timeouts](/docs/configuration/resources.html#timeouts)
+configuration options:
+
+- `read` - (Default `5 minutes`) How long to wait for reading a rsecurity group rule.
+
 ## Import
 
 Security Group Rules can be imported using the `security_group_id`, `type`, `protocol`, `from_port`, `to_port`, and source(s)/destination(s) (e.g. `cidr_block`) separated by underscores (`_`). All parts are required.
